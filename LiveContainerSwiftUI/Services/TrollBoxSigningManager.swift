@@ -101,8 +101,12 @@ print("[TrollBox] No saved signing KeyStore found for team: \(team.identifier)")
         }
 
         do {
-            let accountManager = TrollBoxAppleAccountManager.shared
-            let context = try await accountManager.signingContext()
+    print("[TrollBox] Full signing started")
+
+    let accountManager = TrollBoxAppleAccountManager.shared
+    let context = try await accountManager.signingContext()
+
+    print("[TrollBox] Signing context obtained for team: \(context.team.identifier)")
 
             guard context.team.type != .unknown else {
                 throw SigningError.unknownTeamType
