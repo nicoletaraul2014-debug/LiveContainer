@@ -38,13 +38,16 @@ final class TrollBoxSigningManager: ObservableObject {
     }
 
     private func getOrCreateKeyStore(
+        
         team: Team,
         session: Session
     ) async throws -> KeyStore {
-        if let existing = try loadKeyStore(for: team) {
-            return existing
-        }
+       if let existing = try loadKeyStore(for: team) {
+    print("[TrollBox] Found saved signing KeyStore for team: \(team.identifier)")
+    return existing
+}
 
+print("[TrollBox] No saved signing KeyStore found for team: \(team.identifier)")
         let created = try await DeveloperPortal.shared.addCertificate(
             machineName: "TrollBox",
             type: .iosDevelopment,
